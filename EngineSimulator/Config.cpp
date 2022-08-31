@@ -1,4 +1,5 @@
 #include "Config.h"
+#include <iostream>
 
 Config::Config() : _M{20, 75, 100, 105, 75, 0}, _V{0, 75, 150, 200, 250, 300} {
   _I = 10.0;
@@ -17,26 +18,25 @@ Config::Config(std::string inputFile) {
   if (fin.is_open()) {
     while (getline(fin, line)) {
       std::istringstream sin(line.substr(line.find("=") + 1));
-      long unsigned int cmp = -1;
-      if (line.find("I") != cmp) {
+      if (line.find("I") != -1) {
         sin >> _I;
         i = true;
-      } else if (line.find("M") != cmp) {
+      } else if (line.find("M") != -1) {
         _M = parseArray(sin);
         m = true;
-      } else if (line.find("V") != cmp) {
+      } else if (line.find("V ") != -1) {
         _V = parseArray(sin);
         v = true;
-      } else if (line.find("T") != cmp) {
+      } else if (line.find("T") != -1) {
         sin >> _t_over;
         t = true;
-      } else if (line.find("Hm") != cmp) {
+      } else if (line.find("Hm") != -1) {
         sin >> _Hm;
         hm = true;
-      } else if (line.find("Hv") != cmp) {
+      } else if (line.find("Hv") != -1) {
         sin >> _Hv;
         hv = true;
-      } else if (line.find("C") != cmp) {
+      } else if (line.find("C") != -1) {
         sin >> _C;
         c = true;
       }
@@ -44,12 +44,13 @@ Config::Config(std::string inputFile) {
   } else {
     throw std::invalid_argument("file does not exist: " + inputFile);
   }
-  fin.close();  // ��������� ����
+  fin.close();
   if (_M.size() != _V.size()) {
     throw std::invalid_argument("invalid array read: M.size() != V.size(). " +
                                 inputFile);
   }
   if (!(i && m && v && t && hm && hv && c)) {
+      std::cout << i<< m<< v<< t<<hm << hv<<c;
     throw std::invalid_argument("missing configuration variables: " +
                                 inputFile);
   }

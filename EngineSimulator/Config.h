@@ -19,15 +19,11 @@ class Config {
   double _t_out = .0;
 
  public:
-  // ����������� � ���������� ����������
   Config();
-  // ����������� �� ���������� �� �����
   explicit Config(std::string inputFile);
-  // ��������� �������� �����������
+
   void setTOut(double t_out);
-  // ��������� ������� �� ��������, ����� ��������� ������
   double getM(double V);
-  // �����
   friend std::ostream& operator<<(std::ostream& out, const Config& cfg);
 
  private:

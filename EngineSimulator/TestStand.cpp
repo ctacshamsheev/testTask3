@@ -13,7 +13,7 @@ int TestStand::test() {
       i++;
       _engine->nextStep();
     }
-  } catch (std::range_error& e) {
+  } catch (std::range_error&) {
     _log->printEngineState(*_engine, i);
   }
   if (i >= MAX_ITERATIONS) {
