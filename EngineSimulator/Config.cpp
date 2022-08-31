@@ -69,6 +69,32 @@ Config::Config(std::string inputFile)
 	}
 }
 
+void Config::setTOut(double t_out)
+{
+		_t_out = t_out;
+}
+
+double Config::getM(double V)
+{
+	if (V < _V.front() || V > _V.back()) {
+		std::cout << "ERROR: V = "<< V << std::endl;
+		return 0.0;
+		// TODO exception
+	}
+	int i = 0;
+	while (i< _M.size()) {
+		if (V == _V[i]) {
+			return _M[i];
+		}
+		else if (V<_V[i]) {
+			return ((V - _V[i-1]) / (_V[i] - _V[i - 1])) * (_M[i]- _M[i-1]) + _M[i - 1];
+		} else {
+			i++;
+		}
+	}
+	return 0.0;
+}
+
 std::vector<double> Config::parseArray(std::istringstream& sin)
 {
 	std::vector<double> arr;

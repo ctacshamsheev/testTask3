@@ -7,17 +7,20 @@
 #include <string>
 
 #include "Config.h"
+#include "GasEngine.h"
+#include "TestStand.h"
 
 
 
 int main() {
 
-    Config cfg = Config();
-    std::cout << cfg;
     try {
 
         Config cfg1 = Config("settings.conf");
         std::cout << cfg1;
+        GasEngine engine = GasEngine(cfg1, 50);
+        TestStand testStand = TestStand(&engine);
+        std::cout << testStand.test();
     }
     catch (std::invalid_argument e) {
         std::cout << e.what() << std::endl;

@@ -27,10 +27,10 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const Config& cfg);
 
-	void setTOut(double t_out) {
-		_t_out = t_out;
-	}
+	void setTOut(double t_out);
 
+	double getM(double V);
+	
 private: 
 	std::vector<double> parseArray(std::istringstream& sin);
 };
