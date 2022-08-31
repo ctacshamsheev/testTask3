@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "IEngine.h"
 #include "Config.h"
 #include <string>
@@ -15,10 +15,11 @@ private:
 public:
     GasEngine(Config &cfg , double t_out);
 
-    // Унаследовано через IEngine
+    // РЈРЅР°СЃР»РµРґРѕРІР°РЅРѕ С‡РµСЂРµР· IEngine
     virtual void nextStep() override;
+
     virtual double getT() override;
     virtual double getV() override;
+
     virtual std::string toString() const override;
 };
-

@@ -131,6 +131,7 @@
     <ClCompile Include="EngineSimulator.cpp" />
     <ClCompile Include="GasEngine.cpp" />
     <ClCompile Include="IEngine.cpp" />
+    <ClCompile Include="LogPrint.cpp" />
     <ClCompile Include="TestStand.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +141,11 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="GasEngine.h" />
     <ClInclude Include="IEngine.h" />
+    <ClInclude Include="LogPrint.h" />
     <ClInclude Include="TestStand.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="output0.log" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

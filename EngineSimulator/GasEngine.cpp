@@ -1,7 +1,5 @@
 ﻿#include "GasEngine.h"
 
-
-
 GasEngine::GasEngine(Config& cfg, double t_out)
 {
 	// при старте начинает с нулевой скорости вращения.
@@ -37,7 +35,6 @@ void GasEngine::nextStep()
 		throw std::range_error("the current temperature exceeds the critical: Tcur = " +
 			std::to_string(_currentT) + " Tcr = " + std::to_string(_cfg._t_over));
 	}
-
 }
 
 double GasEngine::getT()

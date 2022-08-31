@@ -3,9 +3,8 @@
 
 Config::Config()
 {
-	std::cout << "Config()" << std::endl;
 	_I = 10.0;
-	_M = { 10, 75, 100, 105, 75, 0 };
+	_M = { 20, 75, 100, 105, 75, 0 };
 	_V = { 0, 75, 150, 200, 250, 300 };
 	_t_over = 110.0;
 	_Hm = 0.01;
@@ -15,8 +14,6 @@ Config::Config()
 
 Config::Config(std::string inputFile)
 {
-	std::cout << "Config(" << inputFile << ")" << std::endl;
-
 	std::ifstream fin(inputFile);
 	std::string line;
 	bool i, m, v, t, hm, hv, c;
@@ -77,9 +74,8 @@ void Config::setTOut(double t_out)
 double Config::getM(double V)
 {
 	if (V < _V.front() || V > _V.back()) {
-		std::cout << "ERROR: V = "<< V << std::endl;
-		return 0.0;
-		// TODO exception
+		return 0.0; 
+		// throw std::invalid_argument("speed out of range");
 	}
 	int i = 0;
 	while (i< _M.size()) {

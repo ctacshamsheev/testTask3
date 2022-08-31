@@ -1,35 +1,36 @@
 ﻿#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <string>
-
 #include "Config.h"
 #include "GasEngine.h"
 #include "TestStand.h"
+#include "LogPrint.h"
 
-
+using std::cout;
+using std::cin;
+using std::endl;
 
 int main() {
+    cout << "enter ambient temperature:\t";
+    double t = 0.0;
+    cin >> t;
 
     try {
+        LogPrint log = LogPrint("output0.log");
 
-        Config cfg1 = Config("settings.conf");
-        std::cout << cfg1;
-        GasEngine engine = GasEngine(cfg1, 50);
-        TestStand testStand = TestStand(&engine);
-        std::cout << testStand.test();
+        Config cfg = Config("settings.conf"); // чтение настроек из файла
+        // Config cfg = Config(); // настройки по умолчанию из задания
+
+        log.getOutputStream() << cfg; 
+
+        GasEngine engine = GasEngine(cfg, t); 
+        TestStand testStand = TestStand(&engine, &log); 
+
+        t = testStand.test();
+        cout << "time elapsed from start to overheat:\t" << t << endl;
+
     }
     catch (std::invalid_argument e) {
         std::cout << e.what() << std::endl;
     }
 
-   // Config config("hell");
-  /*  loadConfig(config);
-    cout << config.num << '\n';
-    cout << config.str << '\n';
-    cout << config.flt << '\n';*/
     return 0;
 }
