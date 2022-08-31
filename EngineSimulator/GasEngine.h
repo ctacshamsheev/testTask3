@@ -1,25 +1,24 @@
 ﻿#pragma once
-#include "IEngine.h"
-#include "Config.h"
-#include <string>
 #include <iostream>
+#include <string>
 
-class GasEngine :
-    public IEngine
-{
-private:
-    Config _cfg;
-    double _currentT;
-    double _currentV;
+#include "Config.h"
+#include "IEngine.h"
 
-public:
-    GasEngine(Config &cfg , double t_out);
+class GasEngine : public IEngine {
+ private:
+  Config _cfg;
+  double _currentT;
+  double _currentV;
 
-    // Унаследовано через IEngine
-    virtual void nextStep() override;
+ public:
+  GasEngine(const Config &cfg, double t_out);
 
-    virtual double getT() override;
-    virtual double getV() override;
+  // Унаследовано через IEngine
+  virtual void nextStep() override;
 
-    virtual std::string toString() const override;
+  virtual double getT() const override;
+  virtual double getV() const override;
+
+  virtual std::string toString() const override;
 };

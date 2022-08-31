@@ -1,36 +1,35 @@
 ﻿#include <iostream>
+
 #include "Config.h"
 #include "GasEngine.h"
-#include "TestStand.h"
 #include "LogPrint.h"
+#include "TestStand.h"
 
-using std::cout;
 using std::cin;
+using std::cout;
 using std::endl;
 
 int main() {
-    cout << "enter ambient temperature:\t";
-    double t = 0.0;
-    cin >> t;
+  cout << "enter ambient temperature:\t";
+  double t = 0.0;
+  cin >> t;
 
-    try {
-        LogPrint log = LogPrint("output0.log");
+  try {
+    LogPrint log = LogPrint("output0.log");
 
-        Config cfg = Config("settings.conf"); // чтение настроек из файла
-        // Config cfg = Config(); // настройки по умолчанию из задания
+    Config cfg = Config("settings.conf");  // чтение настроек из файла
+    // Config cfg = Config(); // настройки по умолчанию из задания
+    log.getOutputStream() << cfg;
 
-        log.getOutputStream() << cfg; 
+    GasEngine engine = GasEngine(cfg, t);
+    TestStand testStand = TestStand(&engine, &log);
 
-        GasEngine engine = GasEngine(cfg, t); 
-        TestStand testStand = TestStand(&engine, &log); 
+    t = testStand.test();
+    cout << "time elapsed from start to overheat:\t" << t << endl;
 
-        t = testStand.test();
-        cout << "time elapsed from start to overheat:\t" << t << endl;
+  } catch (std::invalid_argument& e) {
+    std::cout << e.what() << std::endl;
+  }
 
-    }
-    catch (std::invalid_argument e) {
-        std::cout << e.what() << std::endl;
-    }
-
-    return 0;
+  return 0;
 }
